@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Hello</title>
+
+	<script src="/static/js/iro.min.js"></script>
+</head>
+<body>
+	<h1>Color</h1>
+
+	<div id="color-picker-container"></div>
+
+	<script src="/static/js/socket.io.js"></script>
+	<script type="text/javascript">
+		var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+		var colorPicker = new iro.ColorPicker("#color-picker-container", {
+			// Set the size of the color picker UI
+			width: 320,
+			height: 320,
+			// Set the initial color to red
+			color: "#f00",
+
+			css: {
+				"h1": {
+					"color": "$color"
+				}
+			}
+		});
+
+		colorPicker.on("color:change", function(color, changes) {
+			socket.emit('message', color.rgb);
+		});
+	</script>
+</body>
+</html>
