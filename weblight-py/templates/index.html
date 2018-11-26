@@ -1,36 +1,50 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="utf-8">
 	<title>Hello</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	
+	<link href="/static/css/ratchet.min.css" rel="stylesheet">
+	<link href="/static/css/custom.css" rel="stylesheet">
 
-	<script src="/static/js/iro.min.js"></script>
+	<script src="/static/js/ratchet.min.js"></script>
 </head>
 <body>
-	<h1>Color</h1>
+	<header class="bar bar-nav">
+		<h1 class="title">Color Changer</h1>
+	</header>
 
-	<div id="color-picker-container"></div>
+	<div class="content">
+		<div class="content-padded">
+			<ul class="table-view">
+				<li class="table-view-cell">
+					Power
+					<div class="toggle" data-button="power">
+						<div class="toggle-handle"></div>
+					</div>
+				</li>
+			</ul>
 
+		</div>
+		<div class="content-padded">
+			<center>
+				<div id="color-picker-container"></div>
+			</center>
+		</div>
+		<div class="content-padded light">	
+				<input type="range" min="1" max="100" value="100" class="slider">
+			</ul>
+		</div>
+
+	</div>
+
+
+	<script src="/static/js/iro.min.js"></script>
 	<script src="/static/js/socket.io.js"></script>
-	<script type="text/javascript">
-		var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-		var colorPicker = new iro.ColorPicker("#color-picker-container", {
-			// Set the size of the color picker UI
-			width: 320,
-			height: 320,
-			// Set the initial color to red
-			color: "#f00",
-
-			css: {
-				"h1": {
-					"color": "$color"
-				}
-			}
-		});
-
-		colorPicker.on("color:change", function(color, changes) {
-			socket.emit('message', color.rgb);
-		});
-	</script>
+	<script src="/static/js/main.js"></script>
 </body>
 </html>
